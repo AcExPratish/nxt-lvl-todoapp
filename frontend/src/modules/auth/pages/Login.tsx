@@ -19,12 +19,10 @@ const Login = () => {
     });
 
     try {
-      sessionStorage.setItem("accessToken", res?.data?.data?.token);
+      sessionStorage.setItem("accessToken", res.data.data.token);
       res?.data?.status === 1
         ? successToast(res?.data?.message) && navigate("/todo")
-        : Object.values(res?.response.data.message).map((v: any) =>
-            errorToast(v[0])
-          ) ?? errorToast(res?.data?.error);
+        : errorToast(res?.data?.error);
     } catch (error) {
       errorToast("Something went wrong");
     }
@@ -39,7 +37,20 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={(e: any) => onSubmitHandler(e)} className="d-grid">
+      <form
+        onSubmit={(e: any) => onSubmitHandler(e)}
+        className="d-grid w-40 m-0-auto"
+        style={{ position: "absolute", top: "25%", left: "30%" }}
+      >
+        <img
+          src="https://imgs.search.brave.com/83HboQzSatpZnFBKKB6XQDVnIgl0FWIz5ef5ATYo2Fc/rs:fit:938:980:1/g:ce/aHR0cHM6Ly93d3cu/cGluY2xpcGFydC5j/b20vcGljZGlyL2Jp/Zy81OC01ODczNjhf/c3BhZGUtc3ZnLXBu/Zy1pY29uLWZyZWUt/ZG93bmxvYWQtMTM3/NjgwLW1lZGljYWwu/cG5n"
+          alt="logo"
+          width={"120px"}
+          className="m-0-auto"
+        />
+        <label htmlFor="email" className="mt-2">
+          Email
+        </label>
         <input
           type="email"
           required
@@ -48,15 +59,21 @@ const Login = () => {
           onChange={(e: any) => onChangeHandler(e)}
           value={data.email}
         />
+        <label htmlFor="password">Password</label>
         <input
-          type="text"
+          className=""
+          type="password"
           required
           placeholder="Your password here"
           name="password"
           onChange={(e: any) => onChangeHandler(e)}
           value={data.password}
         />
-        <button type="submit">Submit</button>
+        <div className="w-100 d-flex ac-center jc-center">
+          <button type="submit" className="btn" style={{ width: "40%" }}>
+            Login
+          </button>
+        </div>
       </form>
     </>
   );

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { callAxios } from "../../../plugins/axios";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import {
+  AiFillEdit,
+  AiFillDelete,
+  AiOutlineArrowDown,
+  AiOutlineArrowUp,
+} from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { successToast, errorToast } from "../../../common/Toastify";
 
@@ -15,6 +20,7 @@ const Todo = () => {
       due_date: "",
     },
   ]);
+  const [sorting, setSorting] = useState(true);
 
   const loadData = async () => {
     let res = await callAxios({
@@ -44,6 +50,10 @@ const Todo = () => {
     navigate(`/todo/${id}`);
   };
 
+  const onClickSortHandler = () => {
+    sorting === true ? setSorting(false) : setSorting(true);
+  };
+
   const logoutActionHandler = () => {
     sessionStorage.removeItem("accessToken");
     navigate("/auth");
@@ -66,6 +76,10 @@ const Todo = () => {
     }
   };
 
+  // const pratish = data.filter((data) =>
+  //   data.status == "true" ? (data.status = "Pending") : "Completed"
+  // );
+
   useEffect(() => {
     loadData();
   }, []);
@@ -82,41 +96,66 @@ const Todo = () => {
           Add new task
         </button>
         <button
+          onClick={() => {
+            onClickSortHandler();
+          }}
+          className="d-flex w-20 btn jc-space-around"
+        >
+          Sorting
+          {sorting === true ? (
+            <AiOutlineArrowDown size={16} />
+          ) : (
+            <AiOutlineArrowUp size={16} />
+          )}
+        </button>
+        <button
           onClick={() => logoutActionHandler()}
           className="d-flex w-20 btn"
         >
           Logout
         </button>
       </div>
-      <div className="d-grid mt-3">
+      <div className="d-grid mt-3 jc-center">
         {!!data ? (
-          <table>
+          <table className="w-100">
             {tableHeader}
-            {data.map((data, index) => (
-              <tr key={index}>
-                <td width={"5%"}>{index + 1}</td>
-                <td width={"15%"}>{data?.title}</td>
-                <td width={"40%"}>{data?.content}</td>
-                <td width={"10%"}>{data?.due_date ?? "-"}</td>
-                <td width={"10%"}>
-                  {data?.status.toString() === "true"
-                    ? "Completed"
-                    : "Pending" ?? "-"}
-                </td>
-                <td width={"10%"}>
-                  <button
-                    onClick={() => actionButtonHandler(data?.id.toString())}
-                  >
-                    <AiFillEdit size={20} />
-                  </button>
-                  <button
-                    onClick={() => deleteActionHandler(data?.id.toString())}
-                  >
-                    <AiFillDelete size={20} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {data
+              .sort((a, b) =>
+                sorting === true
+                  ? a.due_date < b.due_date
+                    ? -1
+                    : 1
+                  : a.due_date > b.due_date
+                  ? -1
+                  : 1
+              )
+              .map((data, index) => (
+                <tr key={index}>
+                  <td width={"5%"}>{index + 1}</td>
+                  <td width={"15%"}>{data?.title}</td>
+                  <td width={"40%"}>{data?.content}</td>
+                  <td width={"10%"}>{data?.due_date ?? "-"}</td>
+                  <td width={"10%"}>
+                    {data?.status.toString() === "true"
+                      ? "Completed"
+                      : "Pending" ?? "-"}
+                  </td>
+                  <td width={"2%"}>
+                    <button
+                      onClick={() => actionButtonHandler(data?.id.toString())}
+                      className="border-none mr-2"
+                    >
+                      <AiFillEdit size={20} />
+                    </button>
+                    <button
+                      onClick={() => deleteActionHandler(data?.id.toString())}
+                      className="border-none"
+                    >
+                      <AiFillDelete size={20} className="bg-red" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </table>
         ) : (
           "no data found"
