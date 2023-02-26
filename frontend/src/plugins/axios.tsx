@@ -11,9 +11,6 @@ interface AxiosDTO {
 }
 
 const baseUrl = `${process.env.REACT_APP_SERVER_API}`;
-
-console.log(baseUrl);
-
 export const callAxios = async ({
   url,
   method,
@@ -22,13 +19,14 @@ export const callAxios = async ({
   params,
 }: AxiosDTO) => {
   const token = await getAccessToken();
+  const getToken = sessionStorage.getItem("accessToken");
   const config: AxiosRequestConfig = {
     method: method || "GET",
     url: `${baseUrl}${url}`,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      Authorization: token !== null ? `Bearer ${token}` : "",
+      Authorization: token !== null ? `Bearer ${getToken}` : "",
       ...headers,
     },
     data,

@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import { Navigate, Route, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { getAccessToken } from "../plugins/token";
+import { PUBLIC_ROUTES } from "../modules/auth/routes";
 
-interface PrivateRoutesProps {
-  element: any;
-  path: string;
-}
-
-const AuthRoute = ({ element, path }: PrivateRoutesProps) => {
+const AuthRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     getAccessToken()
   );
@@ -17,10 +13,20 @@ const AuthRoute = ({ element, path }: PrivateRoutesProps) => {
     setIsAuthenticated(getAccessToken());
   }, [route]);
 
-  return !isAuthenticated ? (
-    <Route element={element} path={path} />
-  ) : (
-    <Route element={<Navigate to="/todo" />} />
+  console.log("isAuth", isAuthenticated);
+
+  return (
+    <>
+      <Routes>
+        {!isAuthenticated ? (
+          PUBLIC_ROUTES.map((v, key) => (
+            <Route path={v.path} element={v.element} key={key} />
+          ))
+        ) : (
+          <Route element={<Navigate to={"/todo"} />} />
+        )}
+      </Routes>
+    </>
   );
 };
 
