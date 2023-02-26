@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { errorToast, successToast } from "../../../common/Toastify";
 import { callAxios } from "../../../plugins/axios";
 
 const TodoForm = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     id: "",
     title: "",
@@ -28,8 +30,11 @@ const TodoForm = () => {
           data: data,
         });
       }
-
-      console.log(res?.data?.message);
+      res?.data?.status === 1
+        ? successToast(res?.data?.message) && navigate("/todo")
+        : Object.values(res?.response.data.message).map((v: any) =>
+            errorToast(v[0])
+          ) ?? errorToast(res?.data?.error);
     } catch (error) {
       console.log(error);
     }

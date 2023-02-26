@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { callAxios } from "../../../plugins/axios";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { successToast, errorToast } from "../../../common/Toastify";
 
 const Todo = () => {
   const navigate = useNavigate();
@@ -43,6 +44,11 @@ const Todo = () => {
     navigate(`/todo/${id}`);
   };
 
+  const logoutActionHandler = () => {
+    sessionStorage.removeItem("accessToken");
+    navigate("/auth");
+  };
+
   const deleteActionHandler = async (id: string) => {
     let res = await callAxios({
       url: `todo/${id}`,
@@ -50,9 +56,12 @@ const Todo = () => {
     });
 
     try {
-      res?.data?.status === 1 ? loadData() : console.log("error");
-      console.log(res);
-    } catch (error) {}
+      res?.data?.status === 1
+        ? successToast(res?.data?.message) && loadData()
+        : errorToast(res?.data?.message) ?? errorToast(res?.data?.error);
+    } catch (error) {
+      errorToast(res?.data?.error);
+    }
   };
 
   useEffect(() => {
@@ -61,10 +70,23 @@ const Todo = () => {
 
   return (
     <>
-      <div className="d-grid">
-        <Link to={"/todo/store"} className="d-flex w-20">
+      <div className="d-flex w-100 jc-space-around">
+        <button
+          onClick={() => {
+            navigate("/todo/store");
+          }}
+          className="d-flex w-20 btn"
+        >
           Add new task
-        </Link>
+        </button>
+        <button
+          onClick={() => logoutActionHandler()}
+          className="d-flex w-20 btn"
+        >
+          Logout
+        </button>
+      </div>
+      <div className="d-grid mt-3">
         {!!data ? (
           <table>
             {tableHeader}
