@@ -102,6 +102,7 @@ const Todo = () => {
           className="d-flex w-20 btn jc-space-around"
         >
           Sorting
+          <span className="mr-1"></span>
           {sorting === true ? (
             <AiOutlineArrowDown size={16} />
           ) : (

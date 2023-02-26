@@ -10,9 +10,10 @@ const TodoForm = () => {
     id: "",
     title: "",
     content: "",
-    status: "",
+    status: false,
     due_date: "",
   });
+  const [checkbox, setCheckBox] = useState(null);
 
   const onSubmitHandler = async (e: SubmitEvent) => {
     e.preventDefault();
@@ -68,44 +69,62 @@ const TodoForm = () => {
   return (
     <>
       <form
-        className="d-grid w-60 m-0-auto"
+        className="d-grid w-40 m-0-auto mt-p-1"
         onSubmit={(e: any) => onSubmitHandler(e)}
       >
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           name="title"
-          placeholder="Enter your title"
+          placeholder="Your title here"
           onChange={(e: any) => onChangeHandler(e)}
           value={data.title ?? null}
         />
-        <div className="d-flex">
-          <input
-            type="text"
-            name="due_date"
-            className="w-50"
-            placeholder="YYYY-MM-DD"
-            onChange={(e: any) => onChangeHandler(e)}
-            value={data.due_date ?? null}
-          />
-          <select
-            name="status"
-            className="w-50"
-            placeholder="YYYY-MM-DD"
-            onChange={(e: any) => onChangeHandler(e)}
-            value={data.status ?? null}
-          >
-            <option value={0}>Pending</option>
-            <option value={1}>Completed</option>
-          </select>
-        </div>
+        <label htmlFor="content">Content</label>
         <textarea
           name="content"
           cols={10}
           rows={10}
           onChange={(e: any) => onChangeHandler(e)}
           value={data.content ?? null}
+          placeholder="Your content here"
         ></textarea>
-        <button type="submit">Submit</button>
+        <label htmlFor="due_date">Due Date</label>
+        <input
+          type="date"
+          name="due_date"
+          placeholder="YYYY-MM-DD"
+          onChange={(e: any) => onChangeHandler(e)}
+          value={data.due_date ?? null}
+        />
+        <label htmlFor="status">Status</label>
+        <div className="checkbox">
+          <input
+            type="checkbox"
+            onChange={(e: any) => onChangeHandler(e)}
+            name="status"
+            value={"false"}
+            checked={data?.status.toString() == "false" ?? null}
+            className="mr-1"
+          />
+          <label htmlFor="true-checkbox">Pending</label>
+          <br />
+          <br />
+          <input
+            type="checkbox"
+            onChange={(e: any) => onChangeHandler(e)}
+            name="status"
+            checked={data?.status.toString() == "true" ?? null}
+            value={"true"}
+            className="mr-1"
+          />
+          <label htmlFor="true-checkbox">Completed</label>
+        </div>
+        <div className="d-flex jc-center">
+          <button type="submit" className="btn" style={{ width: "40%" }}>
+            Submit
+          </button>
+        </div>
       </form>
     </>
   );

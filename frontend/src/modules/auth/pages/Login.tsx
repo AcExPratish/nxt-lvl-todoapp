@@ -39,8 +39,7 @@ const Login = () => {
     <>
       <form
         onSubmit={(e: any) => onSubmitHandler(e)}
-        className="d-grid w-40 m-0-auto"
-        style={{ position: "absolute", top: "25%", left: "30%" }}
+        className="d-grid w-40 pa-login-center"
       >
         <img
           src="https://imgs.search.brave.com/83HboQzSatpZnFBKKB6XQDVnIgl0FWIz5ef5ATYo2Fc/rs:fit:938:980:1/g:ce/aHR0cHM6Ly93d3cu/cGluY2xpcGFydC5j/b20vcGljZGlyL2Jp/Zy81OC01ODczNjhf/c3BhZGUtc3ZnLXBu/Zy1pY29uLWZyZWUt/ZG93bmxvYWQtMTM3/NjgwLW1lZGljYWwu/cG5n"
