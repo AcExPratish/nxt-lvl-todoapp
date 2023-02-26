@@ -109,6 +109,10 @@ input {
   text-align: center;
 }
 
+.border-none {
+  border: none;
+}
+
 .btn {
   padding: 10px;
   width: 10%;

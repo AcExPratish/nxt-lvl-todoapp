@@ -98,7 +98,11 @@ const Todo = () => {
                 <td width={"15%"}>{data?.title}</td>
                 <td width={"40%"}>{data?.content}</td>
                 <td width={"10%"}>{data?.due_date ?? "-"}</td>
-                <td width={"10%"}>{data?.status.toString() ?? "-"}</td>
+                <td width={"10%"}>
+                  {data?.status.toString() === "true"
+                    ? "Completed"
+                    : "Pending" ?? "-"}
+                </td>
                 <td width={"10%"}>
                   <button
                     onClick={() => actionButtonHandler(data?.id.toString())}
