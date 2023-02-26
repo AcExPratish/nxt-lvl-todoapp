@@ -2,6 +2,10 @@ import "./App.css";
 import AppRoute from "./routes";
 
 const App = () => {
-  return <AppRoute />;
+  return (
+    <div id="container">
+      <AppRoute />
+    </div>
+  );
 };
 export default App;

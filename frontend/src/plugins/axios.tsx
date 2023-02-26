@@ -10,7 +10,9 @@ interface AxiosDTO {
   isAuthentication?: boolean;
 }
 
-const baseUrl = `${process.env.SERVER_API}`;
+const baseUrl = `${process.env.REACT_APP_SERVER_API}`;
+
+console.log(baseUrl);
 
 export const callAxios = async ({
   url,
@@ -21,7 +23,7 @@ export const callAxios = async ({
 }: AxiosDTO) => {
   const token = await getAccessToken();
   const config: AxiosRequestConfig = {
-    method: method,
+    method: method || "GET",
     url: `${baseUrl}${url}`,
     headers: {
       "Content-Type": "application/json",
