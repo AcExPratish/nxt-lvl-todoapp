@@ -25,7 +25,7 @@ const Todo = () => {
     try {
       setData(res?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      errorToast("Something went wrong");
     }
   };
 
@@ -58,9 +58,11 @@ const Todo = () => {
     try {
       res?.data?.status === 1
         ? successToast(res?.data?.message) && loadData()
-        : errorToast(res?.data?.message) ?? errorToast(res?.data?.error);
+        : Object.values(res?.response.data.message).map((v: any) =>
+            errorToast(v[0])
+          ) ?? errorToast(res?.data?.error);
     } catch (error) {
-      errorToast(res?.data?.error);
+      errorToast("Something went wrong");
     }
   };
 

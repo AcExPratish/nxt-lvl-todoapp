@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { errorToast, successToast } from "../../../common/Toastify";
 import { callAxios } from "../../../plugins/axios";
 
 const Login = () => {
@@ -17,9 +18,15 @@ const Login = () => {
       data: data,
     });
 
-    if (res?.data?.status === 1) {
+    try {
       sessionStorage.setItem("accessToken", res?.data?.data?.token);
-      navigate("/todo");
+      res?.data?.status === 1
+        ? successToast(res?.data?.message) && navigate("/todo")
+        : Object.values(res?.response.data.message).map((v: any) =>
+            errorToast(v[0])
+          ) ?? errorToast(res?.data?.error);
+    } catch (error) {
+      errorToast("Something went wrong");
     }
   };
 

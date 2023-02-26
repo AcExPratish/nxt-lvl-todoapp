@@ -36,7 +36,7 @@ const TodoForm = () => {
             errorToast(v[0])
           ) ?? errorToast(res?.data?.error);
     } catch (error) {
-      console.log(error);
+      errorToast("Something went wrong");
     }
   };
 
@@ -55,7 +55,7 @@ const TodoForm = () => {
     try {
       setData(res?.data?.data);
     } catch (error) {
-      console.log(error);
+      errorToast("Something went wrong");
     }
   };
 
