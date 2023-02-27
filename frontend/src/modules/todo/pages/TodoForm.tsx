@@ -13,8 +13,6 @@ const TodoForm = () => {
     status: false,
     due_date: "",
   });
-  const [checkbox, setCheckBox] = useState(null);
-
   const onSubmitHandler = async (e: SubmitEvent) => {
     e.preventDefault();
     try {
@@ -104,7 +102,7 @@ const TodoForm = () => {
             onChange={(e: any) => onChangeHandler(e)}
             name="status"
             value={"false"}
-            checked={data?.status.toString() == "false" ?? null}
+            checked={data?.status.toString() === "false" ?? null}
             className="mr-1"
           />
           <label htmlFor="true-checkbox">Pending</label>

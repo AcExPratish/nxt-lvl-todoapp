@@ -158,6 +158,10 @@ input {
   margin-right: 50px;
 }
 
+.p-1 {
+  padding: 10px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -182,6 +186,19 @@ input {
 .btn:hover {
   opacity: 0.9;
   transition: 0.2s all ease-in;
+}
+
+.td-none{
+  text-decoration: none;
+}
+
+.link {
+  text-decoration: none;
+  padding: 10px;
+}
+
+.link:hover {
+  color: steelblue;
 }
 
 @media only screen and (max-width: 599px) {
