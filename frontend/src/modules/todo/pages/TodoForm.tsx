@@ -68,9 +68,10 @@ const TodoForm = () => {
   return (
     <>
       <form
-        className="d-grid w-40 m-0-auto mt-p-1"
+        className="d-grid w-40 m-0-auto mt-p-1 mt-1"
         onSubmit={(e: any) => onSubmitHandler(e)}
       >
+        <h1>Todo</h1>
         <label htmlFor="title">Title</label>
         <input
           type="text"
