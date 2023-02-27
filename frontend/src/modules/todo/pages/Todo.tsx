@@ -150,7 +150,7 @@ const Todo = () => {
           Logout
         </button>
       </div>
-      <div className="d-grid mt-3 jc-center" style={{ overflowX: "scroll" }}>
+      <div className="mt-3 jc-center" style={{ overflowX: "scroll" }}>
         {!!data ? (
           <table>
             {tableHeader}
