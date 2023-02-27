@@ -6,6 +6,7 @@ import {
   AiOutlineArrowDown,
   AiOutlineArrowUp,
 } from "react-icons/ai";
+import { GoThreeBars } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { successToast, errorToast } from "../../../common/Toastify";
 
@@ -21,6 +22,7 @@ const Todo = () => {
     },
   ]);
   const [sorting, setSorting] = useState(true);
+  const [statusFilter, setStatusFilter] = useState("");
 
   const loadData = async () => {
     let res = await callAxios({
@@ -52,6 +54,16 @@ const Todo = () => {
 
   const onClickSortHandler = () => {
     sorting === true ? setSorting(false) : setSorting(true);
+  };
+
+  const onFilterStatusHandler = () => {
+    statusFilter === "true"
+      ? setStatusFilter("false")
+      : statusFilter === "false"
+      ? setStatusFilter("")
+      : statusFilter === ""
+      ? setStatusFilter("true")
+      : setStatusFilter("");
   };
 
   const logoutActionHandler = () => {
@@ -93,6 +105,32 @@ const Todo = () => {
         </button>
         <button
           onClick={() => {
+            onFilterStatusHandler();
+          }}
+          className="d-flex w-20 btn jc-space-around"
+        >
+          {statusFilter === "true" ? (
+            <>
+              Completed
+              <span className="mr-1"></span>
+              <AiOutlineArrowDown size={16} />
+            </>
+          ) : statusFilter === "false" ? (
+            <>
+              Pending
+              <span className="mr-1"></span>
+              <AiOutlineArrowUp size={16} />
+            </>
+          ) : (
+            <>
+              Show All
+              <span className="mr-1"></span>
+              <GoThreeBars />
+            </>
+          )}
+        </button>
+        <button
+          onClick={() => {
             onClickSortHandler();
           }}
           className="d-flex w-20 btn jc-space-around"
@@ -117,6 +155,11 @@ const Todo = () => {
           <table className="w-100">
             {tableHeader}
             {data
+              .filter((data) =>
+                statusFilter === ""
+                  ? data.status.toString()
+                  : data.status.toString() === statusFilter
+              )
               .sort((a, b) =>
                 sorting === true
                   ? a.due_date < b.due_date
