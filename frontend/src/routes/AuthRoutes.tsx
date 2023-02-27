@@ -13,8 +13,6 @@ const AuthRoute = () => {
     setIsAuthenticated(getAccessToken());
   }, [route]);
 
-  console.log("isAuth", isAuthenticated);
-
   return (
     <>
       <Routes>

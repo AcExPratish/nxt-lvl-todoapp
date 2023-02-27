@@ -76,10 +76,6 @@ const Todo = () => {
     }
   };
 
-  const pratish = data.filter((data) =>
-    data.status == "true" ? (data.status = "Pending") : "Completed"
-  );
-
   useEffect(() => {
     loadData();
   }, []);

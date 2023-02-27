@@ -16,14 +16,15 @@ const TodoForm = () => {
   const onSubmitHandler = async (e: SubmitEvent) => {
     e.preventDefault();
     try {
+      var res;
       if (!params.id) {
-        var res = await callAxios({
+        res = await callAxios({
           url: "todo",
           method: "POST",
           data: data,
         });
       } else {
-        var res = await callAxios({
+        res = await callAxios({
           url: `todo/${params.id}`,
           method: "PUT",
           data: data,
