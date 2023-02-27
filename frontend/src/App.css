@@ -210,10 +210,6 @@ input {
 }
 
 @media only screen and (max-width: 599px) {
-  .d-grid {
-    grid-template-columns: 1fr;
-  }
-
   .btn {
     font-size: 16px;
     width: 25%;
@@ -221,9 +217,6 @@ input {
 }
 
 @media only screen and (min-width: 600px) and (max-width: 1023px) {
-  .d-grid {
-    grid-template-columns: 1fr;
-  }
   .btn {
     font-size: 16px;
     width: 20%;
