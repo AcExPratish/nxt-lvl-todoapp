@@ -188,8 +188,16 @@ input {
   transition: 0.2s all ease-in;
 }
 
-.td-none{
+.td-none {
   text-decoration: none;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
 }
 
 .link {
