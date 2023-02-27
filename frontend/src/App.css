@@ -211,8 +211,8 @@ input {
 
 @media only screen and (max-width: 599px) {
   .btn {
-    font-size: 16px;
-    width: 25%;
+    font-size: 12px;
+    width: 20%;
   }
 }
 
