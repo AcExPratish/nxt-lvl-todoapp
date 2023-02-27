@@ -150,9 +150,9 @@ const Todo = () => {
           Logout
         </button>
       </div>
-      <div className="d-grid mt-3 jc-center">
+      <div className="d-grid mt-3 jc-center" style={{ overflowX: "scroll" }}>
         {!!data ? (
-          <table className="w-100">
+          <table>
             {tableHeader}
             {data
               .filter((data) =>
@@ -205,7 +205,7 @@ const Todo = () => {
               ))}
           </table>
         ) : (
-          "no data found"
+          <div className="text-center">No data found</div>
         )}
       </div>
     </>
